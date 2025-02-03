@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuestBook</title>
+
+    <link rel="icon" type="image/png" href="images/leek.png">
+
+    <link rel="StyleSheet" href="styles/style.css">
+</head>
+<body>
+    <form action="/submit" method="post">
+        <h1>Contact Form</h1>
+        <fieldset>
+            <label>First Name:
+                <input type="text" name="fname">
+            </label>
+            <label>Last Name:
+                <input type="text" name="lname">
+            </label>
+            <label>Job Title:
+                <input type="text" name="jobtitle">
+            </label>
+        </fieldset>
+        <fieldset>
+            <label>Company:
+                <input type="text" name="company">
+            </label>
+            <label>LinkedIn URL:
+                <input type="text" name="linkedin">
+            </label>
+            <label>Email Address:
+                <input type="text" name="email">
+            </label>
+        </fieldset>
+        <fieldset>
+            <label>How did we meet?
+                <select name="met" id = "met">
+                    <option value="none">Please select an option</option>
+                    <option value="meetup">Meetup</option>
+                    <option value="jobfair">Job Fair</option>
+                    <option value="school">School</option>
+                    <option value="other">Other</option>
+                </select>
+            </label>
+            <label>Other (please specify)
+                <input type="text" name="other">
+            </label>
+        </fieldset>
+        <legend>Message</legend> 
+        <textarea name="message" rows="5" cols="70"></textarea>
+        <label>
+            <input type="checkbox" name="mail" value="yes">Add to mailing list?
+        </label>
+        <label>Choose an email format:</label>
+        <label>
+            <input type="radio" name="format" value="html">HTML
+        </label> 
+        <label>
+            <input type="radio" name="format" value="text">Text
+        </label> 
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
