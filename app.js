@@ -20,6 +20,11 @@ app.post('/submit', (req, res) => {
     res.send(`<h1>Thank you for filling out the form ${req.body.fname}!</h1>`);
 });
 
+app.get('/admin/form', (req, res) => {
+    res.send(form);
+});
+
+
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });
