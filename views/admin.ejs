@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="StyleSheet" href="styles/global.css">
+</head>
+<body>
+    <h1>Submissions</h1>
+    <form action="/" method="get">
+        <button type="submit">Home</button>
+    </form>
+
+    <% if (form.length === 0) { %>
+        <p>No contacts to display!</p>
+    <% } else { %>
+        <ul>
+        <% for (let i = 0; i < form.length; i++) { %>
+            <li><%= form[i].first %></li>
+            <li><%= form[i].last %></li>
+            <li><%= form[i].job %></li>
+            <li><%= form[i].company %></li>
+            <li><%= form[i].linkedin %></li>
+            <li><%= form[i].email %></li>
+            <li><%= form[i].met %></li>
+            <li><%= form[i].other %></li>
+            <li><%= form[i].message %></li>
+            <li><%= form[i].mail %></li>
+            <li><%= form[i].format %></li>
+            <li><%= form[i].timestamp %></li>
+            <hr>
+        <% } %> 
+        </ul>
+    <% } %> 
+</body>
+</html>

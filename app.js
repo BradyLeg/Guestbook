@@ -6,22 +6,65 @@ app.use(express.static('public'));
 
 app.use(express.urlencoded({ extended: true }));
 
+app.set('view engine', 'ejs');
+
 const form = [];
 
 const PORT = 3000;
 
 app.get('/', (req, res) => {
-    res.sendFile(`${import.meta.dirname}/views/home.html`);
+    res.render('home');
 });
 
 app.post('/submit', (req, res) => {
+
+    const submission = {
+        first: req.body.fname,
+        last: req.body.lname,
+        job: req.body.jobtitle,
+        company: req.body.company,
+        linkedin: req.body.linkedin,
+        email: req.body.email,
+        met: req.body.met,
+        other: req.body.other,
+        message: req.body.message,
+        mail: "",
+        format: req.body.format,
+        timestamp: new Date()
+    }
+
+    if (req.body.mail !== "yes") {
+        submission.mail = 'no';
+    } else {
+        submission.mail = req.body.mail;
+    }
+
+    if (submission.first.trim() == "") {
+        res.send("Invaild Input");
+        return;
+    }
+
+    if (submission.last.trim() == "") {
+        res.send("Invaild Input");
+        return;
+    }
+
+    if (submission.email.trim() == "") {
+        res.send("Invaild Input");
+        return;
+    }
+
     console.log(req.body);
-    form.push(req.body);
-    res.send(`<h1>Thank you for filling out the form ${req.body.fname}!</h1>`);
+    form.push(submission);
+
+    res.render('confirm', { submission });
 });
 
-app.get('/admin/form', (req, res) => {
-    res.send(form);
+app.get('/admin', (req, res) => {
+
+    console.log(form)
+
+    res.render('admin', { form });
 });
 
 

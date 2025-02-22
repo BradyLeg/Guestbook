@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="StyleSheet" href="styles/global.css">
+</head>
+<body>
+    <h1>Thank you for filling out the form <%= submission.first %>!</h1>
+    
+    <form action="/admin" method="get">
+        <button type="submit">Admin</button>
+    </form>
+
+    <form action="/" method="get">
+        <button type="submit">Home</button>
+    </form>
+    
+    <p>Name: <%= submission.first %> <%= submission.last %></p>
+    
+    <p>Job: <%= submission.job %></p>
+    
+    <p>Company: <%= submission.company %></p>
+    
+    <p>Linkedin: <%= submission.linkedin %></p>
+    
+    <p>Email: <%= submission.email %></p>
+    
+    <p>Met via: <%= submission.met %></p>
+    
+    <% if (submission.met === "other" || submission.other.trim() !== "") { %>
+        <p>Other: <%= submission.other %></p>
+    <% } %>
+    
+    <% if (submission.message.trim() !== "") { %>
+        <p>Message: <%= submission.message %></p>
+    <% } %>
+
+    <p>Mail: <%= submission.mail %></p>
+
+    <p>Format: <%= submission.format %></p>
+    
+    <p>Time Submitted: <%= submission.timestamp %></p>
+</body>
+</html>
