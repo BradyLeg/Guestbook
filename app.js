@@ -1,5 +1,11 @@
 import express from 'express';
 
+import mariadb from 'mariadb';
+
+import { validateForm } from './public/services/validation.js';
+
+import dotenv from 'dotenv';
+
 const app = express();
 
 app.use(express.static('public'));
@@ -39,22 +45,15 @@ app.post('/submit', (req, res) => {
         submission.mail = req.body.mail;
     }
 
-    if (submission.first.trim() == "") {
-        res.send("Invaild Input");
-        return;
+    console.log(submission);
+
+    const result = validateForm(submission);
+    if (!result.isValid) {
+        console.log(result.errors);
+        res.send(result.errors);
+        return
     }
 
-    if (submission.last.trim() == "") {
-        res.send("Invaild Input");
-        return;
-    }
-
-    if (submission.email.trim() == "") {
-        res.send("Invaild Input");
-        return;
-    }
-
-    console.log(req.body);
     form.push(submission);
 
     res.render('confirm', { submission });
@@ -62,7 +61,7 @@ app.post('/submit', (req, res) => {
 
 app.get('/admin', (req, res) => {
 
-    console.log(form)
+    console.log(form);
 
     res.render('admin', { form });
 });
