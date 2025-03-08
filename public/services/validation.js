@@ -48,7 +48,7 @@ export function validateForm(data) {
         errors.push("Missing format value")
     } else {
         const validOptions = ["html", "text"]
-        if (!validOptions.includes(data.mail)) {
+        if (!validOptions.includes(data.format)) {
             errors.push("Invaild format value");
         }
     }

@@ -6,6 +6,26 @@ import { validateForm } from './public/services/validation.js';
 
 import dotenv from 'dotenv';
 
+dotenv.config()
+
+const pool = mariadb.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_Name,
+    port: process.env.DB_PORT
+});
+
+async function connect() {
+    try {
+        const conn = await pool.getConnection();
+        console.log('Connected to the database');
+        return conn;
+    } catch (err) {
+        console.log(`Error connecting to the database ${err}`);
+    }
+}
+
 const app = express();
 
 app.use(express.static('public'));
@@ -22,7 +42,7 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.post('/submit', (req, res) => {
+app.post('/submit', async (req, res) => {
 
     const submission = {
         first: req.body.fname,
@@ -45,8 +65,6 @@ app.post('/submit', (req, res) => {
         submission.mail = req.body.mail;
     }
 
-    console.log(submission);
-
     const result = validateForm(submission);
     if (!result.isValid) {
         console.log(result.errors);
@@ -55,15 +73,36 @@ app.post('/submit', (req, res) => {
     }
 
     form.push(submission);
+    console.log(form);
+
+    const conn = await connect();
+
+    const insertQuery = await conn.query(`INSERT INTO guest (first, last, job, company, linkedin, email, meet, other, message, mailing, format) VALUES (?,?,?,?,?,?,?,?,?,?,?);`,
+        [submission.first,
+        submission.last,
+        submission.job,
+        submission.company,
+        submission.linkedin,
+        submission.email,
+        submission.met,
+        submission.other,
+        submission.message,
+        submission.mail,
+        submission.format]);
+
 
     res.render('confirm', { submission });
 });
 
-app.get('/admin', (req, res) => {
+app.get('/admin', async (req, res) => {
 
-    console.log(form);
+    const conn = await connect();
 
-    res.render('admin', { form });
+    const guests = await conn.query('SELECT * FROM guest;');
+
+    console.log(guests);
+
+    res.render('admin', { guests });
 });
 
 

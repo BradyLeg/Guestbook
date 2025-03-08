@@ -13,23 +13,24 @@
         <button type="submit">Home</button>
     </form>
 
-    <% if (form.length === 0) { %>
+    <% if (guests.length === 0) { %>
         <p>No contacts to display!</p>
     <% } else { %>
         <ul>
-        <% for (let i = 0; i < form.length; i++) { %>
-            <li><%= form[i].first %></li>
-            <li><%= form[i].last %></li>
-            <li><%= form[i].job %></li>
-            <li><%= form[i].company %></li>
-            <li><%= form[i].linkedin %></li>
-            <li><%= form[i].email %></li>
-            <li><%= form[i].met %></li>
-            <li><%= form[i].other %></li>
-            <li><%= form[i].message %></li>
-            <li><%= form[i].mail %></li>
-            <li><%= form[i].format %></li>
-            <li><%= form[i].timestamp %></li>
+        <% for (let i = 0; i < guests.length; i++) { %>
+            <li><%= guests[i].id %></li>
+            <li><%= guests[i].first %></li>
+            <li><%= guests[i].last %></li>
+            <li><%= guests[i].job %></li>
+            <li><%= guests[i].company %></li>
+            <li><%= guests[i].linkedin %></li>
+            <li><%= guests[i].email %></li>
+            <li><%= guests[i].meet %></li>
+            <li><%= guests[i].other %></li>
+            <li><%= guests[i].message %></li>
+            <li><%= guests[i].mailing %></li>
+            <li><%= guests[i].format %></li>
+            <li><%= guests[i].created_at %></li>
             <hr>
         <% } %> 
         </ul>
